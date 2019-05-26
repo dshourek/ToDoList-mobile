@@ -1,10 +1,15 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import TodoApplication from './components/TodoApplication'
+import store from './store'
+import { Provider } from 'react-redux'
 
 export default class App extends React.Component {
   render() {
     return (
-
+      <Provider store={store}>
+        <TodoApplication />
+      </Provider>
     );
   }
 }
