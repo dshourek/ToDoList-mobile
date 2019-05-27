@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
     View,
     Text,
     StyleSheet
-} from "react-native";
+} from 'react-native';
 
 import AddTodoItem from './AddTodoItem'
-import VisibleTodoList from './VisibleTodoList'
+import TodoList from './TodoList'
 
 class TodoApp extends Component {
     render() {
@@ -14,7 +14,7 @@ class TodoApp extends Component {
             <View style={styles.container}>
                 <AddTodoItem />
                 <View>
-                    <VisibleTodoList />
+                    <TodoList />
                 </View>
             </View>
         );

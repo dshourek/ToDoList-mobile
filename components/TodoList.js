@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 import {
     View,
     Text,
     StyleSheet,
     TouchableOpacity
-} from "react-native";
+} from 'react-native';
+import { connect } from 'react-redux'
+import { toggleTodo } from '../actions'
 
 const TodoList = ({ todos, toggleTodo }) => (
     <View style={{ padding: 20 }}>
@@ -19,7 +21,15 @@ const TodoList = ({ todos, toggleTodo }) => (
     </View>
 )
 
-export default TodoList;
+const mapStateToProps = state => ({
+    todos: state.todos
+})
+
+const mapDispatchToProps = dispatch => ({
+    toggleTodo: id => dispatch(toggleTodo(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
 
 const styles = StyleSheet.create({
     container: {

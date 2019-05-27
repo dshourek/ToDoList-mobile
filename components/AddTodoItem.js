@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
     View,
     Text,
     StyleSheet,
     TextInput,
     TouchableOpacity
-} from "react-native";
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { addTodo } from '../actions'
@@ -16,7 +16,6 @@ class AddTodo extends Component {
     }
 
     addTodo = (text) => {
-        //redux store 
         this.props.dispatch(addTodo(text))
         this.setState({ text: '' })
     }
@@ -39,6 +38,7 @@ class AddTodo extends Component {
         );
     }
 }
+
 export default connect()(AddTodo);
 
 const styles = StyleSheet.create({
