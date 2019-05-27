@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
     StyleSheet,
     TextInput,
     TouchableOpacity
@@ -22,16 +21,16 @@ class AddTodo extends Component {
 
     render() {
         return (
-            <View style={{ flexDirection: 'row', marginHorizontal: 20 }}>
+            <View style={styles.container}>
                 <TextInput
                     onChangeText={(text) => this.setState({ text })}
                     value={this.state.text}
-                    placeholder="Eg. Create New Video"
-                    style={{ borderWidth: 1, borderColor: '#f2f2e1', backgroundColor: '#eaeaea', height: 50, flex: 1, padding: 5 }}
+                    placeholder="Add new Task"
+                    style={styles.input}
                 />
                 <TouchableOpacity onPress={() => this.addTodo(this.state.text)}>
-                    <View style={{ height: 50, backgroundColor: '#eaeaea', alignItems: 'center', justifyContent: 'center' }}>
-                        <Ionicons name="md-add" size={30} style={{ color: '#de9595', padding: 10 }} />
+                    <View style={styles.iconView}>
+                        <Ionicons name="md-add" size={30} style={styles.icon} />
                     </View>
                 </TouchableOpacity>
             </View>
@@ -43,8 +42,27 @@ export default connect()(AddTodo);
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'row',
+        marginHorizontal: 20,
+        borderColor: '#f2f2e1',
+        borderWidth: 1
+    },
+    input: {
+        backgroundColor: '#eaeaea',
+        height: 50,
         flex: 1,
+        padding: 5,
+        fontSize: 16,
+        fontFamily: 'Avenir'
+    },
+    iconView: {
+        height: 50,
+        backgroundColor: '#eaeaea',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    icon: {
+        color: '#000',
+        padding: 10
     }
 });
