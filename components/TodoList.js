@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import { toggleTodo, removeTodo } from '../actions'
+import { VISIBILITY_FILTERS } from '../actions/actionTypes'
 import TodoItem from './TodoItem'
 
 const TodoList = ({ todos, toggleTodo, removeTodo }) => (
@@ -24,8 +25,20 @@ const TodoList = ({ todos, toggleTodo, removeTodo }) => (
     </View>
 )
 
+const getVisibleTodos = (todos, filter) => {
+    switch (filter) {
+        case VISIBILITY_FILTERS.SHOW_COMPLETED:
+            return todos.filter(todo => todo.completed);
+        case VISIBILITY_FILTERS.SHOW_ACTIVE:
+            return todos.filter(todo => !todo.completed);
+        case VISIBILITY_FILTERS.SHOW_ALL:
+        default:
+            return todos;
+    }
+};
+
 const mapStateToProps = state => ({
-    todos: state.todos
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -37,7 +50,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 20
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        flex: 1
     }
 });

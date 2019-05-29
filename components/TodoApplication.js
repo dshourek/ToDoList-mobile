@@ -7,6 +7,7 @@ import {
 
 import AddTodoItem from './AddTodoItem'
 import TodoList from './TodoList'
+import Footer from './Footer'
 
 class TodoApp extends Component {
     render() {
@@ -14,6 +15,7 @@ class TodoApp extends Component {
             <View style={styles.container}>
                 <AddTodoItem />
                 <TodoList />
+                <Footer />
             </View>
         );
     }
@@ -23,7 +25,9 @@ export default TodoApp;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 40,
-        backgroundColor: '#fffff0'
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        paddingTop: 30,
+        backgroundColor: '#fff'
     }
 });

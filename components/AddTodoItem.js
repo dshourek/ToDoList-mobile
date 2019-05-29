@@ -3,7 +3,8 @@ import {
     View,
     StyleSheet,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Keyboard
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
@@ -28,7 +29,7 @@ class AddTodo extends Component {
                     placeholder="Add new Task"
                     style={styles.input}
                 />
-                <TouchableOpacity onPress={() => this.addTodo(this.state.text)}>
+                <TouchableOpacity onPress={() => { this.addTodo(this.state.text); Keyboard.dismiss() }}>
                     <View style={styles.iconView}>
                         <Ionicons name="md-add" size={30} style={styles.icon} />
                     </View>
@@ -43,7 +44,7 @@ export default connect()(AddTodo);
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        marginHorizontal: 20,
+        marginHorizontal: 10,
         borderColor: '#f2f2e1',
         borderWidth: 1
     },

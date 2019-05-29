@@ -10,7 +10,7 @@ import { Ionicons } from '@expo/vector-icons'
 class TodoItem extends Component {
     render() {
         return (
-            <View style={[styles.container, { backgroundColor: this.props.completed ? '#bef2e5' : '#ff7889' }]}>
+            <View style={[styles.container, { backgroundColor: this.props.completed ? '#bef2e5aa' : '#ff7889aa' }]}>
                 <TouchableOpacity onPress={() => { this.props.onToggleClick(); }} style={styles.textTouchable}>
                     <Text style={[styles.text, { textDecorationLine: this.props.completed ? 'line-through' : 'none' }]}>
                         {this.props.text}
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     icon: {
-        color: '#000',
+        color: '#000b',
         padding: 10
     }
 });
