@@ -3,43 +3,47 @@ import {
     View,
     StyleSheet,
     FlatList,
+    ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux'
 import { toggleTodo, removeTodo, fetchTodosData } from '../actions'
 import { VISIBILITY_FILTERS } from '../actions/actionTypes'
 import TodoItem from './TodoItem'
+import { BASE_URL } from '../baseURL'
 
 class TodoList extends Component {
     componentDidMount() {
-        this.props.fetchTodosData('http://192.168.103.26:5000/TodoApi/Todos')
+        this.props.fetchTodosData(BASE_URL)
     }
 
     render() {
         if (this.props.isLoading) {
-            return(
-                <Text>APP IS LOADING</Text>
+            return (
+                <View style={{ flex: 1, padding: 20 }}>
+                    <ActivityIndicator />
+                </View>
             )
         }
         if (this.props.isError) {
-            return(
+            return (
                 <Text>ERROR</Text>
             )
         }
-
-        return(
+        
+        return (
             <View style={styles.container}>
-            <FlatList
-                data={this.props.todos}
-                renderItem={(o) =>
-                    <TodoItem
-                        text={o.item.text}
-                        completed={o.item.completed}
-                        onToggleClick={() => { this.props.toggleTodo(o.item.id); }}
-                        onDeleteClick={() => { this.props.removeTodo(o.item.id); }}
-                    />}
-                keyExtractor={(o, index) => index.toString()}
-            />
-        </View>
+                <FlatList
+                    data={this.props.todos}
+                    renderItem={(o) =>
+                        <TodoItem
+                            text={o.item.text}
+                            completed={o.item.completed}
+                            onToggleClick={() => { this.props.toggleTodo(o.item.id); }}
+                            onDeleteClick={() => { this.props.removeTodo(o.item.id); }}
+                        />}
+                    keyExtractor={(o, index) => index.toString()}
+                />
+            </View>
         );
     }
 }
