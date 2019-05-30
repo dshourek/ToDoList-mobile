@@ -1,36 +1,6 @@
-import { TODO_OPERATIONS } from '../actions/actionTypes'
+import { TODO_OPERATIONS, FETCH_FILTERS } from '../actions/actionTypes'
 
-const initialState = {
-    todos: [
-        {
-            id: 1,
-            text: "Learn ReactNative",
-            completed: true
-        },
-        {
-            id: 2,
-            text: "Learn Redux",
-            completed: false
-        },
-        {
-            id: 3,
-            text: "I want to see how long this task will look like in my app I want to see how long this task will look like in my app FIRST",
-            completed: false
-        },
-        {
-            id: 4,
-            text: "I want to see how long this task will look like in my app I want to see how long this task will look like in my app SECOND",
-            completed: false
-        },
-        {
-            id: 5,
-            text: "Are you scared?",
-            completed: true
-        }
-    ]
-}
-
-const todos = (state = initialState.todos, action) => {
+const todos = (state = [], action) => {
     let newArray;
     switch (action.type) {
         case TODO_OPERATIONS.ADD_TODO:
@@ -54,6 +24,8 @@ const todos = (state = initialState.todos, action) => {
             return [
                 ...state.filter(todo => todo.id !== action.id),
             ]
+        case FETCH_FILTERS.FETCH_TODOS_SUCCESS:
+            return action.todos
         default:
             return state
     }

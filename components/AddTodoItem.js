@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 5,
         fontSize: 16,
-        fontFamily: 'Avenir'
+        // fontFamily: 'Avenir'
     },
     iconView: {
         height: 50,

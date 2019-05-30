@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 12,
-        fontFamily: 'Avenir'
+        // fontFamily: 'Avenir'
     },
     active: {
         color: 'orange',
