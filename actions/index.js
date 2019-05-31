@@ -38,14 +38,14 @@ export const fetchTodosSuccess = (todos) => ({
     todos
 })
 
-export function fetchTodosData(url) {
+export function fetchTodosData(url) {        
     return (dispatch) => {
         dispatch(fetchTodosRequest());
         fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw Error(response.statusText)
-            }
+            }   
             return response.json()})
         .then(todos => dispatch(fetchTodosSuccess(todos)))
         .catch(error => dispatch(fetchTodosFail(error)))

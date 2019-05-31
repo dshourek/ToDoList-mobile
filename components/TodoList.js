@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import { toggleTodo, removeTodo, fetchTodosData } from '../actions'
 import { VISIBILITY_FILTERS } from '../actions/actionTypes'
 import TodoItem from './TodoItem'
-import { BASE_URL } from '../baseURL'
+import BASE_URL from '../baseURL'
 
 class TodoList extends Component {
     componentDidMount() {
