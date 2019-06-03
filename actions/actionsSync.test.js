@@ -14,30 +14,30 @@ import {
     fetchTodosSuccess
 } from './index'
 
-describe('>>>A C T I O N --- Test actions', () => {
+describe('>>>A C T I O N --- Test synchronous action creators', () => {
     it('+++ actionCreator addTodo', () => {
-        const add = addTodo("Some text")
-        expect(add).toEqual({ type: TODO_OPERATIONS.ADD_TODO, text: "Some text" })
-    });
-    it('+++ actionCreator removeTodo', () => {
-        const remove = removeTodo(0)
-        expect(remove).toEqual({ type: TODO_OPERATIONS.REMOVE_TODO, id: 0 })
+        const add = addTodo({Id: 1, text: 'Hello', completed: false})
+        expect(add).toEqual({ type: TODO_OPERATIONS.ADD_TODO, todo: {Id: 1, text: 'Hello', completed: false} })
     });
     it('+++ actionCreator toggleTodo', () => {
         const toggle = toggleTodo(1)
         expect(toggle).toEqual({ type: TODO_OPERATIONS.TOGGLE_TODO, id: 1 })
+    });
+    it('+++ actionCreator removeTodo', () => {
+        const remove = removeTodo(0)
+        expect(remove).toEqual({ type: TODO_OPERATIONS.REMOVE_TODO, id: 0 })
     });
     it('+++ actionCreator setVisibilityFilter', () => {
         const setFilter = setVisibilityFilter(VISIBILITY_FILTERS.SHOW_COMPLETED)
         expect(setFilter).toEqual({ type: SET_VISIBILITY_FILTER, filter: VISIBILITY_FILTERS.SHOW_COMPLETED })
     });
     it('+++ actionCreator fetchTodosRequest', () => {
-        const fetchRequest = fetchTodosRequest()
-        expect(fetchRequest).toEqual({ type: FETCH_FILTERS.FETCH_TODOS_REQUEST })
+        const fetchRequest = fetchTodosRequest(true)
+        expect(fetchRequest).toEqual({ type: FETCH_FILTERS.FETCH_TODOS_REQUEST, isLoading: true })
     });
     it('+++ actionCreator fetchTodosFail', () => {
-        const fetchFail = fetchTodosFail("Something went wrong")
-        expect(fetchFail).toEqual({ type: FETCH_FILTERS.FETCH_TODOS_FAIL, error: "Something went wrong" })
+        const fetchFail = fetchTodosFail(false)
+        expect(fetchFail).toEqual({ type: FETCH_FILTERS.FETCH_TODOS_FAIL, isError: false })
     });
     it('+++ actionCreator fetchTodosSuccess', () => {
         const fetchSuccess = fetchTodosSuccess([1, 2, 3])

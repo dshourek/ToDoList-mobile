@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         height: 'auto',
         textAlign: 'left',
         fontSize: 16,
-        // fontFamily: 'Avenir'
     },
     iconTouchable: {
         justifyContent: 'center'

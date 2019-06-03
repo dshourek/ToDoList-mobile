@@ -6,14 +6,14 @@ import {
     ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux'
-import { toggleTodo, removeTodo, fetchTodosData } from '../actions'
+import { fetchGetData, fetchUpdateData, fetchDeleteData } from '../actions'
 import { VISIBILITY_FILTERS } from '../actions/actionTypes'
 import TodoItem from './TodoItem'
 import BASE_URL from '../baseURL'
 
 class TodoList extends Component {
     componentDidMount() {
-        this.props.fetchTodosData(BASE_URL)
+        this.props.fetchGetData(BASE_URL)
     }
 
     render() {
@@ -29,7 +29,6 @@ class TodoList extends Component {
                 <Text>ERROR</Text>
             )
         }
-        
         return (
             <View style={styles.container}>
                 <FlatList
@@ -38,8 +37,8 @@ class TodoList extends Component {
                         <TodoItem
                             text={o.item.text}
                             completed={o.item.completed}
-                            onToggleClick={() => { this.props.toggleTodo(o.item.id); }}
-                            onDeleteClick={() => { this.props.removeTodo(o.item.id); }}
+                            onToggleClick={() => { this.props.fetchUpdateData(BASE_URL, o.item.id); }}
+                            onDeleteClick={() => { this.props.fetchDeleteData(BASE_URL, o.item.id); }}
                         />}
                     keyExtractor={(o, index) => index.toString()}
                 />
@@ -61,15 +60,15 @@ const getVisibleTodos = (todos, filter) => {
 };
 
 const mapStateToProps = state => ({
-    todos: getVisibleTodos(state.todos, state.visibilityFilter),
+    todos: getVisibleTodos(state.todoItems.todos, state.visibilityFilter),
     isLoading: state.isLoading,
     isError: state.isError
 })
 
 const mapDispatchToProps = dispatch => ({
-    toggleTodo: id => dispatch(toggleTodo(id)),
-    removeTodo: id => dispatch(removeTodo(id)),
-    fetchTodosData: url => dispatch(fetchTodosData(url))
+    fetchGetData: url => dispatch(fetchGetData(url)),
+    fetchUpdateData: (url, id) => dispatch(fetchUpdateData(url, id)),
+    fetchDeleteData: (url, id) => dispatch(fetchDeleteData(url, id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

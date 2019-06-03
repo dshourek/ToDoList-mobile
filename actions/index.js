@@ -1,12 +1,12 @@
-import { 
+import {
     TODO_OPERATIONS,
     SET_VISIBILITY_FILTER,
     FETCH_FILTERS
 } from './actionTypes'
 
-export const addTodo = (text) => ({
+export const addTodo = (newTodo) => ({
     type: TODO_OPERATIONS.ADD_TODO,
-    text
+    todo: newTodo
 })
 
 export const toggleTodo = (id) => ({
@@ -24,13 +24,14 @@ export const setVisibilityFilter = (filter) => ({
     filter
 })
 
-export const fetchTodosRequest = () => ({
+export const fetchTodosRequest = (bool) => ({
     type: FETCH_FILTERS.FETCH_TODOS_REQUEST,
+    isLoading: bool
 })
 
-export const fetchTodosFail = (error) => ({
+export const fetchTodosFail = (bool) => ({
     type: FETCH_FILTERS.FETCH_TODOS_FAIL,
-    error
+    isError: bool
 })
 
 export const fetchTodosSuccess = (todos) => ({
@@ -38,16 +39,67 @@ export const fetchTodosSuccess = (todos) => ({
     todos
 })
 
-export function fetchTodosData(url) {        
+export function fetchGetData(url) {
     return (dispatch) => {
-        dispatch(fetchTodosRequest());
-        fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw Error(response.statusText)
-            }   
-            return response.json()})
-        .then(todos => dispatch(fetchTodosSuccess(todos)))
-        .catch(error => dispatch(fetchTodosFail(error)))
+        dispatch(fetchTodosRequest(true));
+        return fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                dispatch(fetchTodosRequest(false));
+                return response.json()
+            })
+            .then(todos => dispatch(fetchTodosSuccess(todos)))
+            .catch(error => { console.log(error); dispatch(fetchTodosFail(true)) });
+    }
+}
+
+export function fetchAddData(url, todo) {
+    return (dispatch) => {
+        let todoJson = JSON.stringify({text: todo});
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json', 'Content-Type': 'application/json',
+            },
+            body: todoJson
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(response => dispatch(addTodo(response)))
+            .catch(error => { console.log(error); dispatch(fetchTodosFail(true)) });
+    }
+}
+
+export function fetchUpdateData(url, id) {
+    return (dispatch) => {
+        return fetch(`${url}/${id}`, { method: 'PUT' })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
+            .then(() => dispatch(toggleTodo(id)))
+            .catch(error => { console.log(error); dispatch(fetchTodosFail(true)) });
+    }
+}
+
+export function fetchDeleteData(url, id) {
+    return (dispatch) => {
+        return fetch(`${url}/${id}`, { method: 'DELETE' })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
+            .then(() => dispatch(removeTodo(id)))
+            .catch(error => { console.log(error); dispatch(fetchTodosFail(true)) });
     }
 }

@@ -8,15 +8,16 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
-import { addTodo } from '../actions'
+import { fetchAddData } from '../actions'
+import BASE_URL from '../baseURL'
 
 class AddTodo extends Component {
     state = {
         text: ''
     }
 
-    addTodo = (text) => {
-        this.props.dispatch(addTodo(text))
+    addTodo = (url, text) => {
+        this.props.dispatch(fetchAddData(url, text))
         this.setState({ text: '' })
     }
 
@@ -29,7 +30,7 @@ class AddTodo extends Component {
                     placeholder="Add new Task"
                     style={styles.input}
                 />
-                <TouchableOpacity onPress={() => { this.addTodo(this.state.text); Keyboard.dismiss() }}>
+                <TouchableOpacity onPress={() => { this.addTodo(BASE_URL, this.state.text); Keyboard.dismiss() }}>
                     <View style={styles.iconView}>
                         <Ionicons name="md-add" size={30} style={styles.icon} />
                     </View>
@@ -54,7 +55,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 5,
         fontSize: 16,
-        // fontFamily: 'Avenir'
     },
     iconView: {
         height: 50,

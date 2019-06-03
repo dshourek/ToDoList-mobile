@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
-import todos from './todoItemsReducer'
-import fetchReducer from './fetchReducer'
+import todoItems from './todoItemsReducer'
 import visibilityFilter from './visibilityFilterReducer'
 
 export default combineReducers({
-    todos,
+    todoItems,
     visibilityFilter, 
-    fetchReducer
 })
